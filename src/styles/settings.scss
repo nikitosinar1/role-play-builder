@@ -1,0 +1,18 @@
+$primary: #ffc300;
+$secondary: #dc562e;
+
+$backgroundDefault: #000814;
+$backgroundPaper: #001d3d;
+
+$textPrimary: #fff;
+
+$headerHeight: 48px;
+$footerHeight: 0px;
+
+:export {
+  primary: $primary;
+  secondary: $secondary;
+  backgroundDefault: $backgroundDefault;
+  backgroundPaper: $backgroundPaper;
+  textPrimary: $textPrimary;
+}

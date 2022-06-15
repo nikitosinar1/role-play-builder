@@ -1,0 +1,9 @@
+@import "../../styles/settings";
+
+.layout :global {
+  .main {
+    height: 100vh;
+    padding-top: $headerHeight + 15px;
+    padding-bottom: $footerHeight + 15px;
+  }
+}
