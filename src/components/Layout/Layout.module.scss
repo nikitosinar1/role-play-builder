@@ -2,8 +2,13 @@
 
 .layout :global {
   .main {
-    height: 100vh;
-    padding-top: $headerHeight + 15px;
-    padding-bottom: $footerHeight + 15px;
+    height: calc(100vh - $headerHeight - $footerHeight);
+    margin-top: $headerHeight;
+    margin-bottom: $footerHeight;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    overflow: auto;
+    overflow-scrolling: touch;
+    -webkit-overflow-scrolling: touch;
   }
 }

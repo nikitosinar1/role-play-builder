@@ -4,11 +4,16 @@
         "es2021": true
     },
     "extends": [
+        "plugin:@typescript-eslint/recommended",
         "plugin:react/recommended",
-        "airbnb"
+        "plugin:react-hooks/recommended",
+        "airbnb",
+        "airbnb-typescript",
+        "airbnb/hooks"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
+        "project": "./tsconfig.json",
         "ecmaFeatures": {
             "jsx": true
         },
@@ -17,6 +22,7 @@
     },
     "plugins": [
         "react",
+        "react-hooks",
         "@typescript-eslint"
     ],
     "settings": {
@@ -58,6 +64,22 @@
         }],
         "import/extensions": [2, {
             "tsx": "never"
-        }]
+        }],
+        "@typescript-eslint/member-delimiter-style": [2, {
+            "multiline": {
+                "delimiter": "semi",
+                "requireLast": true
+            },
+            "singleline": {
+                "delimiter": "semi",
+                "requireLast": false
+            },
+            "multilineDetection": "brackets"
+        }],
+        "react/jsx-key": "error",
+        "import/prefer-default-export": [0],
+        "react/jsx-max-props-per-line": [
+            "error", { "maximum": { "single": 2, "multi": 1 } }],
+        "react/require-default-props": [0]
     }
 }

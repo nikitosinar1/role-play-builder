@@ -26,8 +26,8 @@ const themeOptions: ThemeOptions = {
 const theme = createTheme(themeOptions);
 
 type Props = {
-    children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
 const Theme = ({ children }: Props) => (
   <ThemeProvider theme={theme}>

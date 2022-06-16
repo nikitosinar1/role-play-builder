@@ -7,13 +7,17 @@ import Header from '../Header/Header';
 import styles from './Layout.module.scss';
 
 type Props = {
-    children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
 const Layout = ({ children }: Props) => (
   <div className={styles.layout}>
     <Header />
-    <Container maxWidth="md" component="main" className="main">
+    <Container
+      maxWidth="md"
+      component="main"
+      className="main"
+    >
       {children}
     </Container>
   </div>
