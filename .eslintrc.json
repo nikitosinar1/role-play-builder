@@ -53,6 +53,10 @@
                     "position": "before"
                 },
                 {
+                    "pattern": "{hooks,utils,styles,components,views,hooks/**,utils/**,styles/**,components/**,views/**}",
+                    "group": "parent"
+                },
+                {
                     "pattern": "*.scss",
                     "group": "index",
                     "patternOptions": { "matchBase": true },
@@ -63,7 +67,8 @@
             "newlines-between": "always"
         }],
         "import/extensions": [2, {
-            "tsx": "never"
+            "tsx": "never",
+            "scss": "always"
         }],
         "@typescript-eslint/member-delimiter-style": [2, {
             "multiline": {

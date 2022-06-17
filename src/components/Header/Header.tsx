@@ -14,8 +14,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import SettingsIcon from '@mui/icons-material/Settings';
 
-import { isIOS } from '../../utils';
-import useBooleanState from '../../hooks/useBooleanState';
+import useBooleanState from 'hooks/useBooleanState';
+import { isIOS } from 'utils';
 
 const Header = () => {
   const [isOpen, onOpen, onClose] = useBooleanState();

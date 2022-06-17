@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ThemeProvider, createTheme, ThemeOptions } from '@mui/material/styles';
 
-import styles from '../styles/settings.scss';
+import styles from 'styles/settings.scss';
 
 const themeOptions: ThemeOptions = {
   palette: {
