@@ -53,7 +53,7 @@
                     "position": "before"
                 },
                 {
-                    "pattern": "{hooks,utils,styles,components,views,hooks/**,utils/**,styles/**,components/**,views/**}",
+                    "pattern": "{hooks,utils,styles,components,views,context,core,hooks/**,utils/**,styles/**,components/**,views/**,context/**,core/**}",
                     "group": "parent"
                 },
                 {
@@ -85,6 +85,9 @@
         "import/prefer-default-export": [0],
         "react/jsx-max-props-per-line": [
             "error", { "maximum": { "single": 2, "multi": 1 } }],
-        "react/require-default-props": [0]
+        "react/require-default-props": [0],
+        "react/jsx-props-no-spreading": [0],
+        "@typescript-eslint/lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
+        "@typescript-eslint/no-explicit-any": ["error"]
     }
 }

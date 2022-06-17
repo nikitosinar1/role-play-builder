@@ -12,6 +12,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 import defaultImage from './defaultImage.png';
 
@@ -19,6 +20,10 @@ const menuOptions = [
   {
     label: 'Edit',
     icon: <EditIcon color="primary" />,
+  },
+  {
+    label: 'Copy',
+    icon: <ContentCopyIcon color="primary" />,
   },
   {
     label: 'Delete',

@@ -1,23 +1,20 @@
 import React from 'react';
 
-import CssBaseline from '@mui/material/CssBaseline';
-
-import Theme from 'components/Theme';
 import Layout from 'components/Layout';
 import CompendiumList from 'views/CompendiumList/CompendiumList';
-import 'styles/index.scss';
+import { compose } from 'utils';
+import { withCompendiumContext } from 'context/compendiumContext';
+import { withThemeContext } from 'context/themeContext';
 
 const App = () => (
-  <>
-    <CssBaseline />
-    <Theme>
-      <Layout>
-        <CompendiumList />
-      </Layout>
-    </Theme>
-  </>
+  <Layout>
+    <CompendiumList />
+  </Layout>
 );
 
 App.displayName = 'App';
 
-export default App;
+export default compose(
+  withThemeContext,
+  withCompendiumContext,
+)(App);

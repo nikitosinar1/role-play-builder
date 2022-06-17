@@ -25,16 +25,16 @@ const themeOptions: ThemeOptions = {
 
 const theme = createTheme(themeOptions);
 
-type Props = {
-  children: React.ReactNode;
+export const withThemeContext = <P extends Record<string, unknown>>(
+  Comp: React.FunctionComponent<P>,
+) => {
+  const WrappedComp = (props: P) => (
+    <ThemeProvider theme={theme}>
+      <Comp {...props} />
+    </ThemeProvider>
+  );
+
+  WrappedComp.displayName = `withThemeContext(${Comp.displayName})`;
+
+  return WrappedComp;
 };
-
-const Theme = ({ children }: Props) => (
-  <ThemeProvider theme={theme}>
-    {children}
-  </ThemeProvider>
-);
-
-Theme.displayName = 'Theme';
-
-export default Theme;
