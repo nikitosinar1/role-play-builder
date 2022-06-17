@@ -1,22 +1,18 @@
 import React from 'react';
 
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+
+const sx = {
+  right: 'calc(50% - 34px)',
+  position: 'fixed',
+  bottom: 50,
+};
 
 const CreateButton = () => (
-  <Box
-    position="fixed"
-    left="50%"
-    bottom={50}
-  >
-    <IconButton
-      sx={{ fontSize: 60, left: -30 }}
-      color="primary"
-    >
-      <AddCircleTwoToneIcon fontSize="inherit" />
-    </IconButton>
-  </Box>
+  <Fab color="primary" sx={sx}>
+    <AddIcon />
+  </Fab>
 );
 
 CreateButton.displayName = 'CreateButtom';
