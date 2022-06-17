@@ -40,7 +40,11 @@ const Header = () => {
         >
           Compendium
         </Typography>
-        <Typography variant="h6" component="div">
+        <Typography
+          variant="h6"
+          component="div"
+          color="primary"
+        >
           LOGO
         </Typography>
       </Toolbar>
@@ -58,7 +62,7 @@ const Header = () => {
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  <SettingsIcon />
+                  <SettingsIcon color="primary" />
                 </ListItemIcon>
                 <ListItemText primary="Settings" />
               </ListItemButton>

@@ -10,7 +10,10 @@ const CreateButton = () => (
     left="50%"
     bottom={50}
   >
-    <IconButton sx={{ fontSize: 60, left: -30 }}>
+    <IconButton
+      sx={{ fontSize: 60, left: -30 }}
+      color="primary"
+    >
       <AddCircleTwoToneIcon fontSize="inherit" />
     </IconButton>
   </Box>

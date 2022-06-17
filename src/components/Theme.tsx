@@ -2,23 +2,23 @@ import React from 'react';
 
 import { ThemeProvider, createTheme, ThemeOptions } from '@mui/material/styles';
 
-import styles from 'styles/settings.scss';
+import settings from 'styles/settings.scss';
 
 const themeOptions: ThemeOptions = {
   palette: {
     mode: 'dark',
     primary: {
-      main: styles.primary,
+      main: settings.primary,
     },
     secondary: {
-      main: styles.secondary,
+      main: settings.secondary,
     },
     background: {
-      default: styles.backgroundDefault,
-      paper: styles.backgroundPaper,
+      default: settings.backgroundDefault,
+      paper: settings.backgroundPaper,
     },
     text: {
-      primary: styles.textPrimary,
+      primary: settings.textPrimary,
     },
   },
 };

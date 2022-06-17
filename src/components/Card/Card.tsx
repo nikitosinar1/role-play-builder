@@ -15,16 +15,12 @@ type Props = {
 
 const Card = ({ image = defaultImage, title, subtitle }: Props) => (
   <ButtonBase sx={{ display: 'block' }}>
-    <Paper
-      elevation={4}
-      variant="outlined"
-      sx={{ p: 1 }}
-    >
+    <Paper variant="outlined" sx={{ p: 1 }}>
       <Box display="flex" textAlign="left">
         <Box
-          pr={2}
+          mr={2}
           lineHeight={0}
-          maxWidth={125}
+          maxWidth={100}
         >
           <img src={image} alt={title} />
         </Box>

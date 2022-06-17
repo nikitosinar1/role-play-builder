@@ -12,7 +12,12 @@ $footerHeight: 0px;
 :export {
   primary: $primary;
   secondary: $secondary;
+
   backgroundDefault: $backgroundDefault;
   backgroundPaper: $backgroundPaper;
+
   textPrimary: $textPrimary;
+
+  headerHeight: $headerHeight;
+  footerHeight: $footerHeight;
 }
