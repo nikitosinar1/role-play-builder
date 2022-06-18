@@ -89,6 +89,7 @@
         "react/require-default-props": [0],
         "react/jsx-props-no-spreading": [0],
         "@typescript-eslint/lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
-        "@typescript-eslint/no-explicit-any": ["error"]
+        "@typescript-eslint/no-explicit-any": ["error"],
+        "react-hooks/exhaustive-deps": ["warn"]
     }
 }

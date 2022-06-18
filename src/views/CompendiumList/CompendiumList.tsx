@@ -43,7 +43,7 @@ const CompendiumCard = ({ id, meta }: CompendiumCardProps) => {
       case 'delete': dispatch({ type: 'remove', id }); break;
       default: break;
     }
-  }, [id, dispatch]);
+  }, [id]);
 
   return (
     <Card
@@ -63,7 +63,7 @@ const CompendiumList = () => {
 
   const onCreateCompendium = useCallback(() => {
     dispatch({ type: 'create' });
-  }, [dispatch]);
+  }, []);
 
   return (
     <>
