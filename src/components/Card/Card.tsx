@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -11,6 +11,8 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
+import useAnchor from 'hooks/useAnchor';
+
 import defaultImage from './defaultImage.png';
 
 type Action = {
@@ -22,7 +24,7 @@ type Action = {
 type ActionCb = (name: string) => void;
 
 type CardActionProps = Action & {
-  onClick?: ActionCb;
+  onClick: ActionCb;
 };
 
 const CardAction = ({
@@ -63,20 +65,17 @@ const Card = ({
   title,
   subtitle,
   actions = [],
-  onActionClick,
+  onActionClick: _onActionClick = () => {},
   onCardClick,
 }: CardProps) => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const {
+    isOpen, onClick, onClose, anchorEl,
+  } = useAnchor();
 
-  const isOpen = Boolean(anchorEl);
-
-  const onClick = useCallback((event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  }, []);
-
-  const onClose = useCallback(() => {
-    setAnchorEl(null);
-  }, []);
+  const onActionClick = useCallback((name: string) => {
+    _onActionClick(name);
+    onClose();
+  }, [_onActionClick]);
 
   return (
     <Paper variant="outlined">
