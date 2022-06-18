@@ -1,5 +1,5 @@
 {
-  "short_name": "RPB",
+  "short_name": "RP Builder",
   "name": "Role Play Builder",
   "icons": [
     {
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#001d3d",
+  "background_color": "#001d3d"
 }

@@ -16,6 +16,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 import useBooleanState from 'hooks/useBooleanState';
 import { isIOS } from 'utils';
+import logo from 'assets/images/logo.png';
 
 const Header = () => {
   const [isOpen, onOpen, onClose] = useBooleanState();
@@ -23,15 +24,17 @@ const Header = () => {
   return (
     <AppBar>
       <Toolbar variant="dense">
-        <IconButton
-          onClick={onOpen}
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          sx={{ mr: 2 }}
-        >
-          <MenuIcon />
-        </IconButton>
+        <Box width={70}>
+          <IconButton
+            onClick={onOpen}
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+          >
+            <MenuIcon />
+          </IconButton>
+        </Box>
+
         <Typography
           variant="h6"
           component="div"
@@ -40,13 +43,10 @@ const Header = () => {
         >
           Compendium
         </Typography>
-        <Typography
-          variant="h6"
-          component="div"
-          color="primary"
-        >
-          LOGO
-        </Typography>
+
+        <Box width={70} lineHeight={0}>
+          <img src={logo} alt="Role Play Builder logo" />
+        </Box>
       </Toolbar>
 
       <SwipeableDrawer

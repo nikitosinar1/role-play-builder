@@ -53,7 +53,7 @@
                     "position": "before"
                 },
                 {
-                    "pattern": "{hooks,utils,styles,components,views,context,core,hooks/**,utils/**,styles/**,components/**,views/**,context/**,core/**}",
+                    "pattern": "{hooks,utils,styles,components,views,context,core,assets,hooks/**,utils/**,styles/**,components/**,views/**,context/**,core/**,assets/**}",
                     "group": "parent"
                 },
                 {
@@ -68,7 +68,8 @@
         }],
         "import/extensions": [2, {
             "tsx": "never",
-            "scss": "always"
+            "scss": "always",
+            "png": "always"
         }],
         "@typescript-eslint/member-delimiter-style": [2, {
             "multiline": {
