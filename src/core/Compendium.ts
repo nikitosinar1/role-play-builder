@@ -5,12 +5,20 @@ export type CompendiumMeta = {
 };
 
 class Compendium {
-  id: symbol;
+  private static LAST_ID = 0;
+
+  private static GENERATE_ID = () => {
+    const id = Compendium.LAST_ID + 1;
+    Compendium.LAST_ID = id;
+    return `compendium${id}`;
+  };
+
+  id: string;
 
   constructor(
     public meta: CompendiumMeta,
   ) {
-    this.id = Symbol('compendium_id');
+    this.id = Compendium.GENERATE_ID();
   }
 
   copy() {

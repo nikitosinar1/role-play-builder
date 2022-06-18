@@ -10,34 +10,62 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 import defaultImage from './defaultImage.png';
 
-const menuOptions = [
-  {
-    label: 'Edit',
-    icon: <EditIcon color="primary" />,
-  },
-  {
-    label: 'Copy',
-    icon: <ContentCopyIcon color="primary" />,
-  },
-  {
-    label: 'Delete',
-    icon: <DeleteIcon color="primary" />,
-  },
-];
-
-type Props = {
-  image?: string;
-  title: string;
-  subtitle: string;
+type Action = {
+  name: string;
+  label: string;
+  icon?: React.ReactNode;
 };
 
-const Card = ({ image = defaultImage, title, subtitle }: Props) => {
+type ActionCb = (name: string) => void;
+
+type CardActionProps = Action & {
+  onClick?: ActionCb;
+};
+
+const CardAction = ({
+  name,
+  label,
+  icon,
+  onClick: _onClick = () => {},
+}: CardActionProps) => {
+  const onClick = useCallback(() => _onClick(name), [name, _onClick]);
+
+  return (
+    <MenuItem onClick={onClick}>
+      {icon && (
+        <ListItemIcon>
+          {icon}
+        </ListItemIcon>
+      )}
+      <ListItemText>
+        <Typography>{label}</Typography>
+      </ListItemText>
+    </MenuItem>
+  );
+};
+
+CardAction.displayName = 'CardAction';
+
+type CardProps = {
+  title: string;
+  subtitle: string;
+  image?: string;
+  actions?: Action[];
+  onActionClick?: ActionCb;
+  onCardClick?: () => void;
+};
+
+const Card = ({
+  image = defaultImage,
+  title,
+  subtitle,
+  actions = [],
+  onActionClick,
+  onCardClick,
+}: CardProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const isOpen = Boolean(anchorEl);
@@ -53,7 +81,7 @@ const Card = ({ image = defaultImage, title, subtitle }: Props) => {
   return (
     <Paper variant="outlined">
       <Box display="flex" alignItems="center">
-        <ButtonBase sx={{ display: 'block', width: '100%' }}>
+        <ButtonBase sx={{ display: 'block', width: '100%' }} onClick={onCardClick}>
           <Box
             display="flex"
             textAlign="left"
@@ -74,28 +102,30 @@ const Card = ({ image = defaultImage, title, subtitle }: Props) => {
           </Box>
         </ButtonBase>
 
-        <IconButton onClick={onClick}>
-          <MoreVertIcon />
-        </IconButton>
+        {actions.length && (
+        <>
+          <IconButton onClick={onClick}>
+            <MoreVertIcon />
+          </IconButton>
 
-        <Menu
-          open={isOpen}
-          onClose={onClose}
-          anchorEl={anchorEl}
-        >
-          {menuOptions.map((item) => (
-            <MenuItem key={item.label}>
-              <ListItemIcon>
-                {item.icon}
-              </ListItemIcon>
-              <ListItemText>
-                <Typography>{item.label}</Typography>
-              </ListItemText>
-            </MenuItem>
-          ))}
-        </Menu>
+          <Menu
+            open={isOpen}
+            onClose={onClose}
+            anchorEl={anchorEl}
+          >
+            {actions.map((item) => (
+              <CardAction
+                key={item.name}
+                name={item.name}
+                label={item.label}
+                icon={item.icon}
+                onClick={onActionClick}
+              />
+            ))}
+          </Menu>
+        </>
+        )}
       </Box>
-
     </Paper>
   );
 };

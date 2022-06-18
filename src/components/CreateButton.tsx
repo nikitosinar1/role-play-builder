@@ -9,8 +9,16 @@ const sx = {
   bottom: 50,
 };
 
-const CreateButton = () => (
-  <Fab color="primary" sx={sx}>
+type Props = {
+  onClick?: () => void;
+};
+
+const CreateButton = ({ onClick }: Props) => (
+  <Fab
+    color="primary"
+    sx={sx}
+    onClick={onClick}
+  >
     <AddIcon />
   </Fab>
 );
