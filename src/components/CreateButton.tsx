@@ -23,6 +23,6 @@ const CreateButton = ({ onClick }: Props) => (
   </Fab>
 );
 
-CreateButton.displayName = 'CreateButtom';
+CreateButton.displayName = 'CreateButton';
 
 export default CreateButton;

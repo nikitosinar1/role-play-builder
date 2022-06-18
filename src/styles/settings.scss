@@ -9,6 +9,8 @@ $textPrimary: #fff;
 $headerHeight: 48px;
 $footerHeight: 0px;
 
+$viewAnimationSpeed: 300;
+
 :export {
   primary: $primary;
   secondary: $secondary;
@@ -20,4 +22,6 @@ $footerHeight: 0px;
 
   headerHeight: $headerHeight;
   footerHeight: $footerHeight;
+
+  viewAnimationSpeed: $viewAnimationSpeed
 }

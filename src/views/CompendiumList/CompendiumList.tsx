@@ -1,9 +1,12 @@
-import React, { useCallback } from 'react';
+import React, { forwardRef, useCallback } from 'react';
 
 import Stack from '@mui/material/Stack';
 import EditIcon from '@mui/icons-material/Edit';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Slide from '@mui/material/Slide';
+import { TransitionGroup } from 'react-transition-group';
+import { useNavigate } from 'react-router-dom';
 
 import Card from 'components/Card/Card';
 import CreateButton from 'components/CreateButton';
@@ -33,7 +36,11 @@ type CompendiumCardProps = {
   meta: Compendium['meta'];
 };
 
-const CompendiumCard = ({ id, meta }: CompendiumCardProps) => {
+const CompendiumCard = forwardRef((
+  { id, meta }: CompendiumCardProps,
+  ref: React.ForwardedRef<HTMLDivElement>,
+) => {
+  const navigate = useNavigate();
   const [, dispatch] = useCompendium();
 
   const onActionClick = useCallback((name: string) => {
@@ -45,16 +52,24 @@ const CompendiumCard = ({ id, meta }: CompendiumCardProps) => {
     }
   }, [id]);
 
+  const onCardClick = useCallback(() => {
+    navigate(id);
+  }, [id]);
+
   return (
-    <Card
-      title={meta.name}
-      subtitle={`v. ${meta.version}`}
-      image={meta.thumbnail}
-      actions={actions}
-      onActionClick={onActionClick}
-    />
+
+    <div ref={ref}>
+      <Card
+        title={meta.name}
+        subtitle={`v. ${meta.version}`}
+        image={meta.thumbnail}
+        actions={actions}
+        onActionClick={onActionClick}
+        onCardClick={onCardClick}
+      />
+    </div>
   );
-};
+});
 
 CompendiumCard.displayName = 'CompendiumCard';
 
@@ -68,13 +83,21 @@ const CompendiumList = () => {
   return (
     <>
       <Stack spacing={2}>
-        {data.map((item) => (
-          <CompendiumCard
-            key={item.id}
-            id={item.id}
-            meta={item.meta}
-          />
-        ))}
+        <TransitionGroup component={null}>
+          {data.map((item) => (
+            <Slide
+              key={item.id}
+              direction="right"
+              appear={false}
+            >
+              <CompendiumCard
+                key={item.id}
+                id={item.id}
+                meta={item.meta}
+              />
+            </Slide>
+          ))}
+        </TransitionGroup>
       </Stack>
 
       <CreateButton onClick={onCreateCompendium} />

@@ -20,3 +20,21 @@ html body {
 img {
   max-width: 100%;
 }
+
+.view-enter {
+  left: 100vw;
+
+  &.view-enter-active {
+    left: 0;
+    transition: left #{$viewAnimationSpeed}ms;
+  }
+}
+
+.view-exit {
+  right: 0;
+
+  &.view-exit-active {
+    right: 100vw;
+    transition: right #{$viewAnimationSpeed}ms;
+  }
+}
