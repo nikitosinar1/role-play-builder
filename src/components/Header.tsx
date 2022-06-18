@@ -22,7 +22,7 @@ const Header = () => {
   const [isOpen, onOpen, onClose] = useBooleanState();
 
   return (
-    <AppBar>
+    <AppBar sx={{ backgroundImage: 'none' }}>
       <Toolbar variant="dense">
         <Box width={70}>
           <IconButton
