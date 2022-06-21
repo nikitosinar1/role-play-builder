@@ -13,26 +13,31 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import SettingsIcon from '@mui/icons-material/Settings';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 import useBooleanState from 'hooks/useBooleanState';
 import { isIOS } from 'utils';
 import logo from 'assets/images/logo.png';
+import { useLayoutContext } from 'context/layoutContext';
 
 const Header = () => {
+  const { title, hasMenu, onBackClick } = useLayoutContext();
   const [isOpen, onOpen, onClose] = useBooleanState();
 
   return (
     <AppBar>
       <Toolbar variant="dense">
         <Box width={70}>
-          <IconButton
-            onClick={onOpen}
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
+          {hasMenu && (
+            <IconButton onClick={onOpen}>
+              <MenuIcon />
+            </IconButton>
+          )}
+          {onBackClick && (
+            <IconButton onClick={onBackClick}>
+              <ArrowBackIosNewIcon />
+            </IconButton>
+          )}
         </Box>
 
         <Typography
@@ -41,7 +46,7 @@ const Header = () => {
           align="center"
           flexGrow={1}
         >
-          Compendium
+          {title}
         </Typography>
 
         <Box width={70} lineHeight={0}>
@@ -49,6 +54,7 @@ const Header = () => {
         </Box>
       </Toolbar>
 
+      {hasMenu && (
       <SwipeableDrawer
         disableBackdropTransition={!isIOS()}
         disableDiscovery={isIOS()}
@@ -70,6 +76,7 @@ const Header = () => {
           </List>
         </Box>
       </SwipeableDrawer>
+      )}
     </AppBar>
   );
 };

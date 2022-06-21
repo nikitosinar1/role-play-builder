@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 
 import Compendium from 'core/Compendium';
-import thumbnail from 'assets/images/compendium-example.png';
+import { compendiumList, generateCompendium } from '../dummyData';
 
 type CompendiumState = {
   data: Compendium[];
@@ -17,22 +17,7 @@ type CompendiumActions =
 type CompendiumContext = [CompendiumState, React.Dispatch<CompendiumActions>];
 
 const defaultState: CompendiumState = {
-  data: [
-    {
-      thumbnail,
-      name: 'Compendium 1',
-      version: '1.0',
-    },
-    {
-      name: 'Compendium 2',
-      version: '1.0',
-    },
-    {
-      thumbnail,
-      name: 'Compendium 3',
-      version: '1.0',
-    },
-  ].map((meta) => new Compendium(meta)),
+  data: compendiumList,
 };
 
 const Context = createContext<CompendiumContext>([defaultState, () => {}]);
@@ -58,10 +43,7 @@ const reducer = (state: CompendiumState, action: CompendiumActions): CompendiumS
     case 'create': {
       return {
         ...state,
-        data: [...state.data, new Compendium({
-          name: `Compendium ${state.data.length + 1}`,
-          version: '1.0',
-        })],
+        data: [...state.data, generateCompendium(state.data.length + 1)],
       };
     }
 

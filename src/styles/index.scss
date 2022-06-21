@@ -23,6 +23,7 @@ img {
 
 .view-enter {
   left: 100vw;
+  z-index: 2;
 
   &.view-enter-active {
     left: 0;
@@ -31,10 +32,11 @@ img {
 }
 
 .view-exit {
+  z-index: 1;
   right: 0;
 
   &.view-exit-active {
-    right: 100vw;
+    right: 20vw;
     transition: right #{$viewAnimationSpeed}ms;
   }
 }

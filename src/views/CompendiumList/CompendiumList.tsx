@@ -4,14 +4,12 @@ import Stack from '@mui/material/Stack';
 import EditIcon from '@mui/icons-material/Edit';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Slide from '@mui/material/Slide';
-import { TransitionGroup } from 'react-transition-group';
 import { useNavigate } from 'react-router-dom';
 
 import Card from 'components/Card/Card';
-import CreateButton from 'components/CreateButton';
 import { useCompendium } from 'context/compendiumContext';
 import Compendium from 'core/Compendium';
+import { LayoutConfig } from 'context/layoutContext';
 
 const actions = [
   {
@@ -82,25 +80,21 @@ const CompendiumList = () => {
 
   return (
     <>
-      <Stack spacing={2}>
-        <TransitionGroup component={null}>
-          {data.map((item) => (
-            <Slide
-              key={item.id}
-              direction="right"
-              appear={false}
-            >
-              <CompendiumCard
-                key={item.id}
-                id={item.id}
-                meta={item.meta}
-              />
-            </Slide>
-          ))}
-        </TransitionGroup>
-      </Stack>
+      <LayoutConfig
+        title="Compendium"
+        hasMenu
+        onAddClick={onCreateCompendium}
+      />
 
-      <CreateButton onClick={onCreateCompendium} />
+      <Stack spacing={2}>
+        {data.map((item) => (
+          <CompendiumCard
+            key={item.id}
+            id={item.id}
+            meta={item.meta}
+          />
+        ))}
+      </Stack>
     </>
   );
 };

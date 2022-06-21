@@ -7,9 +7,9 @@ $backgroundPaper: #001d3d;
 $textPrimary: #fff;
 
 $headerHeight: 48px;
-$footerHeight: 0px;
+$footerHeight: 56px;
 
-$viewAnimationSpeed: 300;
+$viewAnimationSpeed: 200;
 
 :export {
   primary: $primary;
@@ -23,5 +23,5 @@ $viewAnimationSpeed: 300;
   headerHeight: $headerHeight;
   footerHeight: $footerHeight;
 
-  viewAnimationSpeed: $viewAnimationSpeed
+  viewAnimationSpeed: $viewAnimationSpeed;
 }

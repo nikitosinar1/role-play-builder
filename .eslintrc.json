@@ -90,6 +90,7 @@
         "react/jsx-props-no-spreading": [0],
         "@typescript-eslint/lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
         "@typescript-eslint/no-explicit-any": ["error"],
-        "react-hooks/exhaustive-deps": ["warn"]
+        "react-hooks/exhaustive-deps": [0],
+        "no-underscore-dangle": [0]
     }
 }

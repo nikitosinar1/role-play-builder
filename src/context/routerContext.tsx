@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { MemoryRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 export const withRouterContext = <P extends Record<string, unknown>>(
   Comp: React.FunctionComponent<P>,
 ) => {
   const WrappedComp = (props: P) => (
-    <MemoryRouter>
+    <BrowserRouter>
       <Comp {...props} />
-    </MemoryRouter>
+    </BrowserRouter>
   );
 
   WrappedComp.displayName = `withRouterContext(${Comp.displayName})`;

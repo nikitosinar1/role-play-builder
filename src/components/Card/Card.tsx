@@ -53,7 +53,7 @@ CardAction.displayName = 'CardAction';
 
 type CardProps = {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   image?: string;
   actions?: Action[];
   onActionClick?: ActionCb;
@@ -101,7 +101,7 @@ const Card = ({
           </Box>
         </ButtonBase>
 
-        {actions.length && (
+        {Boolean(actions.length) && (
         <>
           <IconButton onClick={onClick}>
             <MoreVertIcon />

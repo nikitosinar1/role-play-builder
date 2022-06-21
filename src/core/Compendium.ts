@@ -1,36 +1,20 @@
+import IdGenerator from 'core/IdGenerator';
+
 export type CompendiumMeta = {
   name: string;
   version: string;
   thumbnail?: string;
 };
 
-class Compendium {
-  private static LAST_ID = 0;
-
-  private static GENERATE_ID = () => {
-    const id = Compendium.LAST_ID + 1;
-    Compendium.LAST_ID = id;
-    return `compendium${id}`;
-  };
-
-  id: string;
-
+class Compendium extends IdGenerator {
   constructor(
     public meta: CompendiumMeta,
   ) {
-    this.id = Compendium.GENERATE_ID();
+    super('compendium');
   }
 
   copy() {
     return new Compendium(this.meta);
-  }
-
-  toInit() {
-    return { meta: this.meta };
-  }
-
-  toJSON() {
-    return JSON.stringify(this.toInit());
   }
 }
 
