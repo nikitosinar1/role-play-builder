@@ -1,45 +1,87 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import { LayoutConfig } from 'context/layoutContext';
 import { useCompendium } from 'context/compendiumContext';
-import { characters } from '../../dummyData';
 import Card from 'components/Card/Card';
+import { useCharacter } from 'context/characterContext';
+import Character from 'core/Character';
+
+const actions = [
+  {
+    name: 'copy',
+    label: 'Copy',
+    icon: <ContentCopyIcon color="primary" />,
+  },
+  {
+    name: 'delete',
+    label: 'Delete',
+    icon: <DeleteIcon color="primary" />,
+  },
+];
+
+type CharacterCardProps = {
+  id: Character['id'];
+  meta: Character['meta'];
+};
+
+const CharacterCard = ({ id, meta }: CharacterCardProps) => {
+  const { dispatch } = useCharacter();
+
+  const onActionClick = useCallback((name: string) => {
+    switch (name) {
+      case 'copy': dispatch({ type: 'copy', id }); break;
+      case 'delete': dispatch({ type: 'remove', id }); break;
+      default: break;
+    }
+  }, [id]);
+
+  return (
+    <Card
+      title={meta.name}
+      subtitle={meta.description}
+      image={meta.thumbnail}
+      actions={actions}
+      onActionClick={onActionClick}
+    />
+  );
+};
+
+CharacterCard.displayName = 'CharacterCard';
 
 const Characters = () => {
   const navigate = useNavigate();
-  const { compendiumId = '' } = useParams();
-  const [{ data }] = useCompendium();
-
-  const currentCharacters = characters[compendiumId] || [];
-
-  const compendium = useMemo(
-    () => data.find((i) => i.id === compendiumId),
-    [compendiumId, data],
-  );
+  const { selected } = useCompendium();
+  const { compendiumCharacters, dispatch } = useCharacter();
 
   const onBackClick = useCallback(() => navigate('/'), []);
 
-  if (!compendium) return null;
+  const onCreateCharacter = useCallback(
+    () => selected && dispatch({ type: 'create', compendiumId: selected.id }),
+    [selected],
+  );
+
+  if (!selected) return null;
 
   return (
     <>
       <LayoutConfig
-        title={compendium.meta.name}
+        title={selected.meta.name}
         onBackClick={onBackClick}
         footer="characters"
-        onAddClick={console.log}
+        onAddClick={onCreateCharacter}
       />
 
       <Stack spacing={2}>
-        {currentCharacters.map((item) => (
-          <Card
+        {compendiumCharacters.map((item) => (
+          <CharacterCard
             key={item.id}
-            title={item.meta.name}
-            subtitle={item.meta.description}
-            image={item.meta.thumbnail}
+            id={item.id}
+            meta={item.meta}
           />
         ))}
       </Stack>

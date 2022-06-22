@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback } from 'react';
+import React, { useCallback } from 'react';
 
 import Stack from '@mui/material/Stack';
 import EditIcon from '@mui/icons-material/Edit';
@@ -34,12 +34,9 @@ type CompendiumCardProps = {
   meta: Compendium['meta'];
 };
 
-const CompendiumCard = forwardRef((
-  { id, meta }: CompendiumCardProps,
-  ref: React.ForwardedRef<HTMLDivElement>,
-) => {
+const CompendiumCard = ({ id, meta }: CompendiumCardProps) => {
   const navigate = useNavigate();
-  const [, dispatch] = useCompendium();
+  const { dispatch } = useCompendium();
 
   const onActionClick = useCallback((name: string) => {
     switch (name) {
@@ -51,28 +48,25 @@ const CompendiumCard = forwardRef((
   }, [id]);
 
   const onCardClick = useCallback(() => {
-    navigate(id);
+    navigate(`/${id}/characters`);
   }, [id]);
 
   return (
-
-    <div ref={ref}>
-      <Card
-        title={meta.name}
-        subtitle={`v. ${meta.version}`}
-        image={meta.thumbnail}
-        actions={actions}
-        onActionClick={onActionClick}
-        onCardClick={onCardClick}
-      />
-    </div>
+    <Card
+      title={meta.name}
+      subtitle={`v. ${meta.version}`}
+      image={meta.thumbnail}
+      actions={actions}
+      onActionClick={onActionClick}
+      onCardClick={onCardClick}
+    />
   );
-});
+};
 
 CompendiumCard.displayName = 'CompendiumCard';
 
 const CompendiumList = () => {
-  const [{ data }, dispatch] = useCompendium();
+  const { data, dispatch } = useCompendium();
 
   const onCreateCompendium = useCallback(() => {
     dispatch({ type: 'create' });

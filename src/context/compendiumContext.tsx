@@ -2,49 +2,48 @@ import React, {
   createContext, useContext, useMemo, useReducer,
 } from 'react';
 
+import { useMatch } from 'react-router-dom';
+
 import Compendium from 'core/Compendium';
 import { compendiumList, generateCompendium } from '../dummyData';
-
-type CompendiumState = {
-  data: Compendium[];
-};
 
 type CompendiumActions =
     { type: 'remove'; id: Compendium['id'] } |
     { type: 'copy'; id: Compendium['id'] } |
     { type: 'create' };
 
-type CompendiumContext = [CompendiumState, React.Dispatch<CompendiumActions>];
+type State = Compendium[];
 
-const defaultState: CompendiumState = {
-  data: compendiumList,
+type CompendiumContext = {
+  data: State;
+  selected: Compendium | null;
+  dispatch: React.Dispatch<CompendiumActions>;
 };
 
-const Context = createContext<CompendiumContext>([defaultState, () => {}]);
+const defaultContext: CompendiumContext = {
+  data: compendiumList,
+  selected: null,
+  dispatch: () => {},
+};
+
+const Context = createContext<CompendiumContext>(defaultContext);
 
 Context.displayName = 'CompendiumContext';
 
-const reducer = (state: CompendiumState, action: CompendiumActions): CompendiumState => {
+const reducer = (state: State, action: CompendiumActions): State => {
   switch (action.type) {
     case 'remove': {
-      const data = state.data.filter((i) => i.id !== action.id);
-      return { ...state, data };
+      return state.filter((i) => i.id !== action.id);
     }
 
     case 'copy': {
-      const item = state.data.find((i) => i.id === action.id);
+      const item = state.find((i) => i.id === action.id);
       if (!item) return state;
-      return {
-        ...state,
-        data: [...state.data, item.copy()],
-      };
+      return [...state, item.copy()];
     }
 
     case 'create': {
-      return {
-        ...state,
-        data: [...state.data, generateCompendium(state.data.length + 1)],
-      };
+      return [...state, generateCompendium()];
     }
 
     default: return state;
@@ -53,13 +52,26 @@ const reducer = (state: CompendiumState, action: CompendiumActions): CompendiumS
 
 export const useCompendium = () => useContext<CompendiumContext>(Context);
 
+const compIdRouterPattern = { path: '/:id', end: false };
+
 export const withCompendiumContext = <P extends Record<string, unknown>>(
   Comp: React.FunctionComponent<P>,
 ) => {
   const WrappedComp = (props: P) => {
-    const [state, dispatch] = useReducer(reducer, defaultState);
+    const match = useMatch(compIdRouterPattern);
+    const [data, dispatch] = useReducer(reducer, defaultContext.data);
 
-    const value = useMemo<CompendiumContext>(() => [state, dispatch], [state]);
+    const selectedId = match?.params?.id;
+    const selected = useMemo(
+      () => data.find((i) => i.id === selectedId) || null,
+      [data, selectedId],
+    );
+
+    const value = useMemo(() => ({
+      data,
+      selected,
+      dispatch,
+    }), [data, selected]);
 
     return (
       <Context.Provider value={value}>
