@@ -14,7 +14,7 @@ import { withCharacterContext } from 'context/characterContext';
 const App = () => (
   <Routes>
     <Route path="/" element={<CompendiumList />} />
-    <Route path="/:compendiumId/characters" element={<Characters />} />
+    <Route path="/:compendiumId/characters1111" element={<Characters />} />
   </Routes>
 );
 
