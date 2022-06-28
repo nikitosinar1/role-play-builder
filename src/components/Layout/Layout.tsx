@@ -8,6 +8,7 @@ import Header from 'components/Layout/Header';
 import AddButton from 'components/Layout/AddButton';
 import { useLayoutContext } from 'context/layoutContext';
 import Footer from 'components/Layout/Footer';
+import { homeBarHeight } from 'utils';
 
 type Props = {
   children: React.ReactNode;
@@ -16,7 +17,7 @@ type Props = {
 const Layout = ({ children }: Props) => {
   const { onAddClick, footer } = useLayoutContext();
 
-  const footerHeight = footer ? settings.footerHeight : '0px';
+  const footerHeight = footer ? `${(parseInt(settings.footerHeight, 10) + homeBarHeight)}px` : '0px';
 
   return (
     <>
