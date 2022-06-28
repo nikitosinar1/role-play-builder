@@ -7,12 +7,16 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import SearchIcon from '@mui/icons-material/Search';
 
+import settings from 'styles/settings.scss';
+
 const footerSx = {
   position: 'fixed',
   left: 0,
   bottom: 0,
   right: 0,
   boxShadow: 15,
+  height: `calc(${settings.footerHeight} + ${settings.safeBottomArea})`,
+  pb: settings.safeBottomArea,
 };
 
 type Props = {

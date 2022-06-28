@@ -16,7 +16,7 @@ type Props = {
 const Layout = ({ children }: Props) => {
   const { onAddClick, footer } = useLayoutContext();
 
-  const footerHeight = footer ? settings.footerHeight : '0px';
+  const footerHeight = footer ? `calc(${settings.footerHeight} + ${settings.safeBottomArea})` : '0px';
 
   return (
     <>

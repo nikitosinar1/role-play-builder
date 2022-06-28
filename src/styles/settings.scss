@@ -8,6 +8,7 @@ $textPrimary: #fff;
 
 $headerHeight: 48px;
 $footerHeight: 56px;
+$safeBottomArea: env(safe-area-inset-bottom);
 
 $viewAnimationSpeed: 200;
 
@@ -22,6 +23,7 @@ $viewAnimationSpeed: 200;
 
   headerHeight: $headerHeight;
   footerHeight: $footerHeight;
+  safeBottomArea: $safeBottomArea;
 
   viewAnimationSpeed: $viewAnimationSpeed;
 }
