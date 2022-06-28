@@ -7,7 +7,6 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import SearchIcon from '@mui/icons-material/Search';
 
-import { homeBarHeight } from 'utils';
 import settings from 'styles/settings.scss';
 
 const footerSx = {
@@ -16,8 +15,8 @@ const footerSx = {
   bottom: 0,
   right: 0,
   boxShadow: 15,
-  height: parseInt(settings.footerHeight, 10) + homeBarHeight,
-  pb: `${homeBarHeight}px`,
+  height: `calc(${settings.footerHeight} + ${settings.safeBottomArea})`,
+  pb: settings.safeBottomArea,
 };
 
 type Props = {

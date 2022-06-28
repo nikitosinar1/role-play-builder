@@ -4,7 +4,6 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
 
-import { homeBarHeight } from 'utils';
 import settings from 'styles/settings.scss';
 
 type Props = {
@@ -15,7 +14,7 @@ const AddButton = ({ onClick }: Props) => (
   <Box
     position="fixed"
     right="calc(50% - 28px)"
-    bottom={parseInt(settings.footerHeight, 10) + 10 + homeBarHeight}
+    bottom={`calc(${settings.footerHeight} + ${settings.safeBottomArea} + 10px)`}
   >
     <Fab
       color="primary"
