@@ -14,7 +14,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import Button from '@mui/material/Button';
 
 import useBooleanState from 'hooks/useBooleanState';
 import { isIOS } from 'utils';
@@ -35,14 +34,9 @@ const Header = () => {
             </IconButton>
           )}
           {onBackClick && (
-          <Button
-            color="inherit"
-            onClick={onBackClick}
-            startIcon={<ArrowBackIosNewIcon />}
-            disableRipple
-          >
-            Back
-          </Button>
+          <IconButton onClick={onBackClick}>
+            <ArrowBackIosNewIcon />
+          </IconButton>
           )}
         </Box>
 
