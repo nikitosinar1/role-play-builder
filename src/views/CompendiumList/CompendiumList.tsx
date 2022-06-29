@@ -66,20 +66,17 @@ const CompendiumCard = ({ id, meta }: CompendiumCardProps) => {
 CompendiumCard.displayName = 'CompendiumCard';
 
 const CompendiumList = () => {
-  const { data, dispatch } = useCompendium();
+  const navigate = useNavigate();
+  const { data } = useCompendium();
 
-  const onCreateCompendium = useCallback(() => {
-    dispatch({ type: 'create' });
-  }, []);
+  const onCreateCompendium = useCallback(() => navigate('/compendium/create'), []);
 
   return (
-    <>
-      <LayoutConfig
-        title="Compendium"
-        hasMenu
-        onAddClick={onCreateCompendium}
-      />
-
+    <LayoutConfig
+      title="Compendium"
+      hasMenu
+      onAddClick={onCreateCompendium}
+    >
       <Stack spacing={2}>
         {data.map((item) => (
           <CompendiumCard
@@ -89,7 +86,7 @@ const CompendiumList = () => {
           />
         ))}
       </Stack>
-    </>
+    </LayoutConfig>
   );
 };
 

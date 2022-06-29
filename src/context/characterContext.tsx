@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 
 import Character from 'core/Character';
-import { characters, generateCharacter } from '../dummyData';
+import { generateCharacter } from '../dummyData';
 import Compendium from 'core/Compendium';
 import { useCompendium } from 'context/compendiumContext';
 
@@ -19,7 +19,7 @@ type CharacterContext = {
 };
 
 const defaultCharacterContext: CharacterContext = {
-  data: characters,
+  data: [],
   compendiumCharacters: [],
   dispatch: () => {},
 };

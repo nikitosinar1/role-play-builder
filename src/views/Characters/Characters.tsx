@@ -68,14 +68,12 @@ const Characters = () => {
   if (!selected) return null;
 
   return (
-    <>
-      <LayoutConfig
-        title={selected.meta.name}
-        onBackClick={onBackClick}
-        footer="characters"
-        onAddClick={onCreateCharacter}
-      />
-
+    <LayoutConfig
+      title={selected.meta.name}
+      onBackClick={onBackClick}
+      footer="characters"
+      onAddClick={onCreateCharacter}
+    >
       <Stack spacing={2}>
         {compendiumCharacters.map((item) => (
           <CharacterCard
@@ -85,7 +83,7 @@ const Characters = () => {
           />
         ))}
       </Stack>
-    </>
+    </LayoutConfig>
   );
 };
 

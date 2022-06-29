@@ -22,6 +22,7 @@ const defaultLayoutConfig: LayoutContext = {
   onAddClick: null,
   onBackClick: null,
   footer: null,
+
   setConfig: () => {},
 };
 
@@ -29,17 +30,21 @@ const Context = createContext<LayoutContext>(defaultLayoutConfig);
 
 export const useLayoutContext = () => useContext(Context);
 
-export const LayoutConfig = (props: Partial<LayoutConfigType>) => {
+type LayoutConfigProps = Partial<LayoutConfigType> & {
+  children: JSX.Element;
+};
+
+export const LayoutConfig = ({ children, ...rest }: LayoutConfigProps) => {
   const context = useLayoutContext();
 
   useEffect(() => {
     context.setConfig({
       ...defaultLayoutConfig,
-      ...props,
+      ...rest,
     });
   }, []);
 
-  return null;
+  return children;
 };
 
 LayoutConfig.displayName = 'LayoutConfig';

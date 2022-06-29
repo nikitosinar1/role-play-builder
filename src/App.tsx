@@ -10,10 +10,12 @@ import { withThemeContext } from 'context/themeContext';
 import { withRouterContext } from 'context/routerContext';
 import { withLayoutContext } from 'context/layoutContext';
 import { withCharacterContext } from 'context/characterContext';
+import CreateCompendium from 'views/CreateCompendium/CreateCompendium';
 
 const App = () => (
   <Routes>
     <Route path="/" element={<CompendiumList />} />
+    <Route path="/compendium/create/*" element={<CreateCompendium />} />
     <Route path="/:compendiumId/characters" element={<Characters />} />
   </Routes>
 );

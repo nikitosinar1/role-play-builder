@@ -12,8 +12,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
 import useAnchor from 'hooks/useAnchor';
-
-import defaultImage from './defaultImage.png';
+import defaultImage from 'assets/images/defaultImage.png';
 
 type Action = {
   name: string;

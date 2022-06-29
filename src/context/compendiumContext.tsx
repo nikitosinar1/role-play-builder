@@ -5,12 +5,11 @@ import React, {
 import { useMatch } from 'react-router-dom';
 
 import Compendium from 'core/Compendium';
-import { compendiumList, generateCompendium } from '../dummyData';
 
 type CompendiumActions =
     { type: 'remove'; id: Compendium['id'] } |
     { type: 'copy'; id: Compendium['id'] } |
-    { type: 'create' };
+    { type: 'create'; compendium: Compendium };
 
 type State = Compendium[];
 
@@ -21,7 +20,7 @@ type CompendiumContext = {
 };
 
 const defaultContext: CompendiumContext = {
-  data: compendiumList,
+  data: [],
   selected: null,
   dispatch: () => {},
 };
@@ -43,7 +42,7 @@ const reducer = (state: State, action: CompendiumActions): State => {
     }
 
     case 'create': {
-      return [...state, generateCompendium()];
+      return [...state, action.compendium];
     }
 
     default: return state;

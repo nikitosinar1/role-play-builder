@@ -29,8 +29,8 @@ const Layout = ({ children }: Props) => {
         height={`calc(100vh - ${settings.headerHeight} - ${footerHeight})`}
         top={settings.headerHeight}
         bottom={settings.footerHeight}
-        pt="15px"
-        pb="15px"
+        pt={1}
+        pb={1}
         overflow="auto"
       >
         <Container maxWidth="md">
