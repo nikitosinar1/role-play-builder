@@ -2,13 +2,19 @@ import React, {
   createContext, useContext, useMemo, useReducer,
 } from 'react';
 
-import { CompendiumMeta } from 'core/Compendium';
+import Compendium from 'core/Compendium';
+import Tracker from 'core/Tracker';
 
 type Form = {
-  meta: Partial<CompendiumMeta>;
+  meta: Partial<Compendium['meta']>;
+  trackers: Compendium['trackers'];
 };
 
-type CompendiumFormActions = { type: 'meta'; meta: Form['meta'] };
+type CompendiumFormActions =
+    { type: 'meta'; meta: Form['meta'] } |
+    { type: 'tracker-create'; tracker: Tracker } |
+    { type: 'tracker-delete'; name: Tracker['name'] } |
+    { type: 'tracker-update'; oldTrackerName: Tracker['name']; tracker: Tracker };
 
 type CompendiumFormContext = {
   data: Form;
@@ -18,6 +24,7 @@ type CompendiumFormContext = {
 const defaultContext: CompendiumFormContext = {
   data: {
     meta: {},
+    trackers: [],
   },
   dispatch: () => {},
 };
@@ -34,6 +41,30 @@ const reducer = (state: Form, action: CompendiumFormActions): Form => {
         ...state.meta,
         ...action.meta,
       },
+    };
+
+    case 'tracker-create': {
+      const trackers = state.trackers.filter(({ name }) => name !== action.tracker.name);
+
+      return {
+        ...state,
+        trackers: [...trackers, action.tracker],
+      };
+    }
+
+    case 'tracker-update': {
+      const trackers = state.trackers
+        .filter(({ name }) => ![action.tracker.name, action.oldTrackerName].includes(name));
+
+      return {
+        ...state,
+        trackers: [...trackers, action.tracker],
+      };
+    }
+
+    case 'tracker-delete': return {
+      ...state,
+      trackers: state.trackers.filter(({ name }) => name !== action.name),
     };
 
     default: return state;

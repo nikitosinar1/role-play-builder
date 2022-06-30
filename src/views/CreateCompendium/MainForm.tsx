@@ -20,10 +20,10 @@ const routes = [
     name: 'meta',
     label: 'Meta',
   },
-  // {
-  //   name: 'trackers',
-  //   label: 'Trackers',
-  // },
+  {
+    name: 'trackers',
+    label: 'Trackers',
+  },
   // {
   //   name: 'articles',
   //   label: 'Articles',
@@ -43,7 +43,7 @@ const MainForm = () => {
 
   const onCreateCompendium = useCallback(() => {
     try {
-      const compendium = safeCompendiumCreation(data.meta);
+      const compendium = safeCompendiumCreation(data.meta, data.trackers);
       dispatch({ type: 'create', compendium });
       navigate('/');
     } catch (e) {
