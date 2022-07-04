@@ -22,7 +22,7 @@ const actions = [
     label: 'Delete',
     icon: <DeleteIcon color="primary" />,
   },
-];
+] as const;
 
 type CharacterCardProps = {
   id: Character['id'];
@@ -32,7 +32,7 @@ type CharacterCardProps = {
 const CharacterCard = ({ id, meta }: CharacterCardProps) => {
   const { dispatch } = useCharacter();
 
-  const onActionClick = useCallback((name: string) => {
+  const onActionClick = useCallback((name: typeof actions[number]['name']) => {
     switch (name) {
       case 'copy': dispatch({ type: 'copy', id }); break;
       case 'delete': dispatch({ type: 'remove', id }); break;

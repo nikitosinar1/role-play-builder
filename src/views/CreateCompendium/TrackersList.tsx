@@ -1,23 +1,30 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import Stack from '@mui/material/Stack';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import Divider from '@mui/material/Divider';
-import List from '@mui/material/List';
 
 import { useCompendiumForm } from 'context/compendiumFormContext';
 import { LayoutConfig } from 'context/layoutContext';
+import List from 'components/List';
 
 const TrackersList = () => {
   const navigate = useNavigate();
   const { data: { trackers } } = useCompendiumForm();
 
+  const items = useMemo(() => trackers.map((item) => ({
+    name: item.name,
+    label: item.name,
+    iconRight: <ChevronRightIcon />,
+  })), [trackers]);
+
   const onBackClick = useCallback(() => navigate('/compendium/create'), []);
 
   const onAddTracker = useCallback(() => navigate('/compendium/create/trackers/create'), []);
+
+  const onTrackerClick = useCallback(
+    (item: { name: string }) => navigate(`/compendium/create/trackers/${item.name}`),
+    [],
+  );
 
   useEffect(() => {
     if (trackers.length) return;
@@ -30,20 +37,7 @@ const TrackersList = () => {
       onBackClick={onBackClick}
       onAddClick={onAddTracker}
     >
-      <Stack spacing={2}>
-        <List sx={{ ml: -2, mr: -2, mt: -2 }}>
-          {trackers.map((item) => (
-            <React.Fragment key={item.name}>
-              <ListItemButton onClick={() => navigate(`/compendium/create/trackers/${item.name}`)}>
-                <ListItemText>{item.name}</ListItemText>
-                <ChevronRightIcon />
-              </ListItemButton>
-
-              <Divider />
-            </React.Fragment>
-          ))}
-        </List>
-      </Stack>
+      <List items={items} onListItemClick={onTrackerClick} />
     </LayoutConfig>
   );
 };

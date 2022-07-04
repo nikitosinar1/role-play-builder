@@ -1,9 +1,5 @@
 import React, { useCallback, useState } from 'react';
 
-import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemButton from '@mui/material/ListItemButton';
-import List from '@mui/material/List';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
@@ -14,24 +10,45 @@ import { LayoutConfig } from 'context/layoutContext';
 import { useCompendiumForm } from 'context/compendiumFormContext';
 import { safeCompendiumCreation } from 'core/Compendium';
 import { useCompendium } from 'context/compendiumContext';
+import List from 'components/List';
 
 const routes = [
   {
     name: 'meta',
     label: 'Meta',
+    iconRight: <ChevronRightIcon />,
   },
   {
     name: 'trackers',
     label: 'Trackers',
+    iconRight: <ChevronRightIcon />,
   },
   // {
-  //   name: 'articles',
+  //   name: 'meta',
   //   label: 'Articles',
+  //   iconRight: <ChevronRightIcon />,
   // },
-  // {
-  //   name: 'interface',
-  //   label: 'Interface',
-  // },
+  {
+    name: 'interface',
+    label: 'Interface',
+    children: [
+      {
+        name: 'interface/preview',
+        label: 'Preview',
+        iconRight: <ChevronRightIcon />,
+      },
+      {
+        name: 'meta',
+        label: 'Flows',
+        iconRight: <ChevronRightIcon />,
+      },
+      // {
+      //   name: 'meta',
+      //   label: 'Pages',
+      //   iconRight: <ChevronRightIcon />,
+      // },
+    ],
+  },
 ];
 
 const MainForm = () => {
@@ -43,7 +60,7 @@ const MainForm = () => {
 
   const onCreateCompendium = useCallback(() => {
     try {
-      const compendium = safeCompendiumCreation(data.meta, data.trackers);
+      const compendium = safeCompendiumCreation(data.meta, data.trackers, data.characterPreview);
       dispatch({ type: 'create', compendium });
       navigate('/');
     } catch (e) {
@@ -51,15 +68,20 @@ const MainForm = () => {
         switch (e.message) {
           case 'EMPTY_NAME': setError('Missing "Compendium Name". Please check Meta'); break;
           case 'EMPTY_VERSION': setError('Missing "Version". Please check Meta'); break;
+          case 'EMPTY_PREVIEW_TITLE': setError('Missing "Title" in Interface -> Preview'); break;
           default: setError('Unexpected error');
         }
       } else setError('Unexpected error');
     }
-  }, [data.meta]);
+  }, [data]);
 
   const onBackClick = useCallback(() => {
     const sure = window.confirm('Are you sure you want to cancel compendium creation? All changes will be lost.');
     if (sure) navigate('/');
+  }, []);
+
+  const onListItemClick = useCallback((item: { name: string }) => {
+    if (item.name !== 'interface') navigate(`/compendium/create/${item.name}`);
   }, []);
 
   return (
@@ -68,18 +90,7 @@ const MainForm = () => {
       onBackClick={onBackClick}
     >
       <Stack spacing={2}>
-        <List sx={{ ml: -2, mr: -2, mt: -2 }}>
-          {routes.map((item) => (
-            <React.Fragment key={item.name}>
-              <ListItemButton onClick={() => navigate(`/compendium/create/${item.name}`)}>
-                <ListItemText>{item.label}</ListItemText>
-                <ChevronRightIcon />
-              </ListItemButton>
-
-              <Divider />
-            </React.Fragment>
-          ))}
-        </List>
+        <List items={routes} onListItemClick={onListItemClick} />
 
         <Button
           variant="outlined"

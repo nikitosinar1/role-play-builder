@@ -8,13 +8,15 @@ import Tracker from 'core/Tracker';
 type Form = {
   meta: Partial<Compendium['meta']>;
   trackers: Compendium['trackers'];
+  characterPreview: Partial<Compendium['characterPreview']>;
 };
 
 type CompendiumFormActions =
     { type: 'meta'; meta: Form['meta'] } |
     { type: 'tracker-create'; tracker: Tracker } |
     { type: 'tracker-delete'; name: Tracker['name'] } |
-    { type: 'tracker-update'; oldTrackerName: Tracker['name']; tracker: Tracker };
+    { type: 'tracker-update'; oldTrackerName: Tracker['name']; tracker: Tracker } |
+    { type: 'character-preview'; preview: Form['characterPreview'] };
 
 type CompendiumFormContext = {
   data: Form;
@@ -25,6 +27,7 @@ const defaultContext: CompendiumFormContext = {
   data: {
     meta: {},
     trackers: [],
+    characterPreview: {},
   },
   dispatch: () => {},
 };
@@ -37,10 +40,7 @@ const reducer = (state: Form, action: CompendiumFormActions): Form => {
   switch (action.type) {
     case 'meta': return {
       ...state,
-      meta: {
-        ...state.meta,
-        ...action.meta,
-      },
+      meta: { ...state.meta, ...action.meta },
     };
 
     case 'tracker-create': {
@@ -65,6 +65,11 @@ const reducer = (state: Form, action: CompendiumFormActions): Form => {
     case 'tracker-delete': return {
       ...state,
       trackers: state.trackers.filter(({ name }) => name !== action.name),
+    };
+
+    case 'character-preview': return {
+      ...state,
+      characterPreview: { ...state.characterPreview, ...action.preview },
     };
 
     default: return state;

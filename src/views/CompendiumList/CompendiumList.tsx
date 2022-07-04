@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 
 import Stack from '@mui/material/Stack';
-import EditIcon from '@mui/icons-material/Edit';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
@@ -13,11 +12,6 @@ import { LayoutConfig } from 'context/layoutContext';
 
 const actions = [
   {
-    name: 'edit',
-    label: 'Edit',
-    icon: <EditIcon color="primary" />,
-  },
-  {
     name: 'copy',
     label: 'Copy',
     icon: <ContentCopyIcon color="primary" />,
@@ -27,7 +21,7 @@ const actions = [
     label: 'Delete',
     icon: <DeleteIcon color="primary" />,
   },
-];
+] as const;
 
 type CompendiumCardProps = {
   id: Compendium['id'];
@@ -38,9 +32,8 @@ const CompendiumCard = ({ id, meta }: CompendiumCardProps) => {
   const navigate = useNavigate();
   const { dispatch } = useCompendium();
 
-  const onActionClick = useCallback((name: string) => {
+  const onActionClick = useCallback((name: typeof actions[number]['name']) => {
     switch (name) {
-      case 'edit': break;
       case 'copy': dispatch({ type: 'copy', id }); break;
       case 'delete': dispatch({ type: 'remove', id }); break;
       default: break;

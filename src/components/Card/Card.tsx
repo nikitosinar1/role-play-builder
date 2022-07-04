@@ -20,18 +20,18 @@ type Action = {
   icon?: React.ReactNode;
 };
 
-type ActionCb = (name: string) => void;
+type ActionCb<N extends Action['name']> = (name: N) => void;
 
-type CardActionProps = Action & {
-  onClick: ActionCb;
+type CardActionProps<A extends Action> = Action & {
+  onClick: ActionCb<A['name']>;
 };
 
-const CardAction = ({
+const CardAction = <A extends Action>({
   name,
   label,
   icon,
   onClick: _onClick = () => {},
-}: CardActionProps) => {
+}: CardActionProps<A>) => {
   const onClick = useCallback(() => _onClick(name), [name, _onClick]);
 
   return (
@@ -50,23 +50,23 @@ const CardAction = ({
 
 CardAction.displayName = 'CardAction';
 
-type CardProps = {
+type CardProps<A extends Action> = {
   title: string;
   subtitle?: string;
   image?: string;
-  actions?: Action[];
-  onActionClick?: ActionCb;
+  actions?: readonly A[];
+  onActionClick?: ActionCb<A['name']>;
   onCardClick?: () => void;
 };
 
-const Card = ({
+const Card = <A extends Action>({
   image = defaultImage,
   title,
   subtitle,
   actions = [],
   onActionClick: _onActionClick = () => {},
   onCardClick,
-}: CardProps) => {
+}: CardProps<A>) => {
   const {
     isOpen, onClick, onClose, anchorEl,
   } = useAnchor();

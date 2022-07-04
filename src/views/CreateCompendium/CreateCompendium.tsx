@@ -8,6 +8,7 @@ import MainForm from './MainForm';
 import MetaForm from './MetaForm';
 import TrackersList from './TrackersList';
 import TrackerForm from './TrackerForm';
+import InterfacePreview from './InterfacePreview';
 
 const CreateCompendium = () => (
   <Routes>
@@ -16,6 +17,7 @@ const CreateCompendium = () => (
     <Route path="/trackers" element={<TrackersList />} />
     <Route path="/trackers/create" element={<TrackerForm />} />
     <Route path="/trackers/:name" element={<TrackerForm />} />
+    <Route path="/interface/preview" element={<InterfacePreview />} />
   </Routes>
 );
 
